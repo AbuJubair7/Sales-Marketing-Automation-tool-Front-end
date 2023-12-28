@@ -43,8 +43,12 @@ const SignUpForm: React.FC = () => {
 
       const data = await response.json();
       setJwtToken(data.token);
-      Cookies.set("authToken", data.token, { expires: 15 });
-      Cookies.set("role", data.user.role, { expires: 15 });
+      // Calculate the expiration date
+      const expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + 15 * 60 * 1000);
+      // Set the cookie with the calculated expiration date
+      Cookies.set("authToken", data.token, { expires: expirationDate });
+      Cookies.set("role", data.user.role, { expires: expirationDate });
       if (data.user.role === "employee") {
         router.push("/employee");
       } else if (data.user.role === "admin") {

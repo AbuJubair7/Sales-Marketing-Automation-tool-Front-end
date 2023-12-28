@@ -31,8 +31,14 @@ const SigninForm: React.FC = () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    Cookies.set("authToken", data.token, { expires: 15 });
-    Cookies.set("role", data.user.role, { expires: 15 });
+    // Assuming 'data.token' is the token you want to store
+
+    // Calculate the expiration date
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 1000);
+    // Set the cookie with the calculated expiration date
+    Cookies.set("authToken", data.token, { expires: expirationDate });
+    Cookies.set("role", data.user.role, { expires: expirationDate });
     if (data.user.role === "employee") {
       router.push("/employee");
     } else if (data.user.role === "admin") {
