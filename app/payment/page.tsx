@@ -39,6 +39,30 @@ const Page = () => {
     fetchData();
   }, [router]);
 
+  const transaction = async (plan: string) => {
+    try {
+      const token = Cookies.get("authToken") || "";
+      const payment = { paymentPlan: plan };
+      // alert(payment.paymentPlan);
+      const res = await fetch("http://localhost:8000/payment/transaction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payment),
+      });
+      if (res.ok) {
+        const result = await res.json();
+        router.push("/manager");
+      } else {
+        alert("/payment: " + res.status);
+      }
+    } catch (error) {
+      alert("Error");
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -71,6 +95,9 @@ const Page = () => {
                     cursor: "pointer",
                     width: "100%", // Make the button full width
                   }}
+                  onClick={() => {
+                    transaction(payment.paymentPlan);
+                  }} // Call the pay function when clicked
                 >
                   Buy
                 </button>

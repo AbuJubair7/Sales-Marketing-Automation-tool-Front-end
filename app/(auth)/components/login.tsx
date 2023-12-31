@@ -19,6 +19,9 @@ const SigninForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // if (email === "jubair@gmail.com" && password === "1234") {
+    //   router.push("/admin");
+    // }
     const response = await fetch("http://localhost:8000/auth/signin", {
       method: "POST",
       headers: {
@@ -45,7 +48,7 @@ const SigninForm: React.FC = () => {
       data.user.role === "saler" ||
       data.user.role === "marketer"
     ) {
-      router.push("/employee");
+      router.push("/viewContact");
     } else if (data.user.role === "admin") {
       router.push("/admin");
     } else if (data.user.role === "manager") {
@@ -54,26 +57,68 @@ const SigninForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
+    <form
+      onSubmit={handleSubmit}
+      style={{ maxWidth: "300px", margin: "auto", textAlign: "center" }}
+    >
+      <div style={{ marginBottom: "15px" }}>
+        <label
+          htmlFor="email"
+          style={{ marginRight: "10px", display: "block", textAlign: "left" }}
+        >
+          Email:
+        </label>
         <input
           type="email"
           id="email"
           value={email}
           onChange={handleEmailChange}
+          style={{
+            padding: "8px",
+            borderRadius: "5px",
+            border: "1px solid #ddd",
+            width: "100%",
+          }}
         />
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label
+          htmlFor="password"
+          style={{ marginRight: "10px", display: "block", textAlign: "left" }}
+        >
+          Password:
+        </label>
         <input
           type="password"
           id="password"
           value={password}
           onChange={handlePasswordChange}
+          style={{
+            padding: "8px",
+            borderRadius: "5px",
+            border: "1px solid #ddd",
+            width: "100%",
+          }}
         />
       </div>
-      <button type="submit">Sign In</button>
+
+      <div>
+        <button
+          type="submit"
+          style={{
+            padding: "10px",
+            backgroundColor: "#006400",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            width: "100%",
+          }}
+        >
+          Sign In
+        </button>
+      </div>
     </form>
   );
 };

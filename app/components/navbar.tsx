@@ -2,9 +2,7 @@
 
 const Navbar = () => {
   return (
-    <nav
-      style={{ backgroundColor: "darkblue", padding: "10px", color: "white" }}
-    >
+    <nav style={{ backgroundColor: "orange", padding: "10px", color: "white" }}>
       <div
         style={{
           maxWidth: "800px",

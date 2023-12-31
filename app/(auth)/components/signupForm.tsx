@@ -63,63 +63,98 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h5>JWT: {jwtToken}</h5>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Address:
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Confirm Password:
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Role:
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="">Select Role</option>
-          <option value="manager">Manager</option>
-          <option value="employee">Employee</option>
-        </select>
-      </label>
-      <br />
-      <button type="submit">Submit</button>
+    <form
+      onSubmit={handleSubmit}
+      style={{ maxWidth: "400px", margin: "auto", textAlign: "center" }}
+    >
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={{ marginLeft: "10px" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ marginLeft: "6px" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Address:
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            style={{ marginLeft: "4px" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Confirm Password:
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Role:
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            style={{ marginLeft: "8px" }}
+          >
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="employee">Employee</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          style={{
+            padding: "10px",
+            backgroundColor: "#006400",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
+      </div>
     </form>
   );
 };
