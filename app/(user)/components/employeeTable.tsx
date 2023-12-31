@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const EmployeeTable = () => {
+  const router = useRouter();
   const [employees, setEmployees] = useState<any>([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +20,7 @@ const EmployeeTable = () => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          router.push("/login");
         }
 
         const data = await response.json();
@@ -29,15 +30,13 @@ const EmployeeTable = () => {
             employee.role !== "admin" && employee.role !== "manager"
         );
         setEmployees(filteredEmployees);
-        setError(null);
       } catch (err: any) {
-        setError(err.message);
         setEmployees([]);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, [router]); // Empty dependency array means this effect runs once on mount
 
   const handleRoleChange = async (id: any, newRole: any) => {
     try {
@@ -56,7 +55,7 @@ const EmployeeTable = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        router.push("/login");
       }
 
       // Assuming you want to update the UI with the new role
@@ -68,15 +67,11 @@ const EmployeeTable = () => {
       });
 
       setEmployees(updatedEmployees);
-      setError(null);
-    } catch (err: any) {
-      setError(err.message);
-    }
+    } catch (err: any) {}
   };
 
   return (
     <div>
-      {error && <p>Error: {error}</p>}
       <table style={{ fontSize: "20px", borderSpacing: "10px" }}>
         <thead>
           <tr>

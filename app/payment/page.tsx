@@ -1,8 +1,9 @@
 "use client";
-import { useRouter } from "@/node_modules/next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import LogoutButton from "../components/logoutBtn";
 import Navbar from "../components/navbar";
+import Cookies from "js-cookie";
 
 interface Payment {
   paymentId: number;
@@ -11,17 +12,25 @@ interface Payment {
 }
 
 const Page = () => {
+  const router = useRouter();
   const [data, setData] = useState<Payment[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:8000/paymentPlan/findall");
+        const token = Cookies.get("authToken") || "";
+        const res = await fetch("http://localhost:8000/paymentPlan/findall", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (res.ok) {
           const result = await res.json();
           setData(result);
         } else {
-          alert("Empty");
+          router.push("/login");
         }
       } catch (error) {
         alert("Error");
@@ -33,14 +42,21 @@ const Page = () => {
   return (
     <div>
       <Navbar />
-      <div style={{ textAlign: "Right" }}>
+      <div style={{ textAlign: "right", padding: "10px" }}>
         <LogoutButton />
       </div>
-      <h1>Payment</h1>
+      <h1 style={{ textAlign: "center", color: "#006400" }}>Payment</h1>
       <div className="row">
         {data.map((payment) => (
           <div key={payment.paymentId} className="col-md-4 mb-4">
-            <div className="card">
+            <div
+              className="card"
+              style={{
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
+            >
               <div className="card-body">
                 <h5 className="card-title">{payment.paymentPlan}</h5>
                 <p className="card-text">Package: {payment.paymentPlan}</p>
@@ -53,6 +69,7 @@ const Page = () => {
                     border: "none",
                     borderRadius: "5px",
                     cursor: "pointer",
+                    width: "100%", // Make the button full width
                   }}
                 >
                   Buy
@@ -62,7 +79,6 @@ const Page = () => {
           </div>
         ))}
       </div>
-      <br />
     </div>
   );
 };

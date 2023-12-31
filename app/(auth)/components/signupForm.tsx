@@ -49,6 +49,7 @@ const SignUpForm: React.FC = () => {
       // Set the cookie with the calculated expiration date
       Cookies.set("authToken", data.token, { expires: expirationDate });
       Cookies.set("role", data.user.role, { expires: expirationDate });
+      Cookies.set("id", data.user.id, { expires: expirationDate });
       if (data.user.role === "employee") {
         router.push("/employee");
       } else if (data.user.role === "admin") {
