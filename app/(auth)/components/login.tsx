@@ -35,11 +35,16 @@ const SigninForm: React.FC = () => {
 
     // Calculate the expiration date
     const expirationDate = new Date();
-    expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 1000);
+    expirationDate.setTime(expirationDate.getTime() + 15 * 60 * 1000);
     // Set the cookie with the calculated expiration date
     Cookies.set("authToken", data.token, { expires: expirationDate });
     Cookies.set("role", data.user.role, { expires: expirationDate });
-    if (data.user.role === "employee") {
+    Cookies.set("id", data.user.id, { expires: expirationDate });
+    if (
+      data.user.role === "employee" ||
+      data.user.role === "saler" ||
+      data.user.role === "marketer"
+    ) {
       router.push("/employee");
     } else if (data.user.role === "admin") {
       router.push("/admin");
