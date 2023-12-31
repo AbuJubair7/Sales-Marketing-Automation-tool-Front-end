@@ -37,7 +37,7 @@ const Page = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [router]);
 
   return (
     <div>
